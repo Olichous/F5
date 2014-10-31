@@ -60,12 +60,11 @@ if __name__ == "__main__":
     # For every equipement we have to connect to the equipement,
     # obtain all the VIP and find all the VIP with a PROFILE_TYPE_CLIENT_SSL activate
     # We put all the VIP SSL in a xls
-
+    # Use var = "to{}to".format(j) with j an integer if you want to put an integer in a string.
     j = 0
     for F5_BIGIP_IP in F5_BIGIP_IP_LIST:
         print " Pour le LB %s = %s \n" %(socket.gethostbyaddr(F5_BIGIP_IP)[0], F5_BIGIP_IP)
-        pswd = "NTV{}&adm".format(j+1)
-        print pswd
+        #pswd = "{}wx".format(j+1)
         F5_BIGIP = bigsuds.BIGIP(F5_BIGIP_IP, username = login, password = pswd)
         VS, VS_PROFILE_ATTRIBUTE = get_all_VirtualServer_ProfileType(F5_BIGIP)
         VS_IP = get_VirtualServer_destination(F5_BIGIP, VS)
@@ -78,5 +77,4 @@ if __name__ == "__main__":
                     feuill1.write(i+1,j,VS_IP[i]['address'])    
             i+=1
         j+=1
- 
     book.save('test.xls')
